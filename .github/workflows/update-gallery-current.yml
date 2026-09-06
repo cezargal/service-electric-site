@@ -1,0 +1,50 @@
+name: Update gallery current photos
+on:
+  push:
+    paths:
+      - '.github/workflows/update-gallery-current.yml'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update gallery
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old=re.search(r'<div class="projectGrid projectGridSingle">.*?</div></div><div class="galleryMore">.*?</div>',s)
+          if not old:
+              raise SystemExit('gallery block not found')
+          photos=[
+            ('/images/IMG_20260404_101440.jpg','Lucrare reală SERVICE ELECTRIC – interfonie'),
+            ('/images/IMG_20260404_101510.jpg','Lucrare reală SERVICE ELECTRIC – instalație'),
+            ('/images/IMG_2238.JPG','Lucrare reală SERVICE ELECTRIC – automatizare'),
+            ('/images/IMG_2239.JPG','Lucrare reală SERVICE ELECTRIC – automatizare'),
+            ('/images/IMG_2240.JPG','Lucrare reală SERVICE ELECTRIC – control acces'),
+            ('/images/IMG_2661.JPG','Lucrare reală SERVICE ELECTRIC – control acces')
+          ]
+          cards=''.join(f'<button class="galleryPhoto" type="button" data-gallery-index="{i}" aria-label="Deschide fotografia {i+1}"><img src="{src}" alt="{alt}"></button>' for i,(src,alt) in enumerate(photos))
+          block='<div class="projectGrid projectGridSingle"><div class="projectCard galleryCard"><div class="galleryPhotos">'+cards+'</div><div class="projectInfo"><div class="projectTag">GALERIE FOTO • 6 FOTOGRAFII</div><h3>Lucrări SERVICE ELECTRIC</h3><p>Lucrări reale • instalări • modernizări</p></div></div></div><div class="galleryMore">6 fotografii • Apasă pe o fotografie pentru galerie</div>'
+          s=s[:old.start()]+block+s[old.end():]
+          s=re.sub(r'const photos=\[.*?\];', 'const photos=['+','.join('"'+x[0]+'"' for x in photos)+'];', s, count=1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Update homepage gallery with current work photos'
+          git push
+      - name: Remove temporary workflow
+        if: always()
+        run: |
+          rm -f .github/workflows/update-gallery-current.yml
+          git add .github/workflows/update-gallery-current.yml
+          git diff --cached --quiet || git commit -m 'Remove temporary gallery workflow'
+          git push

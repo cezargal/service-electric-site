@@ -1,0 +1,33 @@
+name: Set Facebook image
+on:
+  push:
+    branches: [main]
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update Open Graph image
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('https://service-electric.ro/images/IMG_20260404_101440.jpg','https://service-electric.ro/images/facebook-preview.jpg')
+          s=s.replace('og:image:height\" content=\"630\"','og:image:height\" content=\"628\"')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Set professional Facebook preview image'
+          git push
+      - name: Remove temporary workflow
+        run: |
+          rm -f .github/workflows/set-facebook-image.yml
+          git add .github/workflows/set-facebook-image.yml
+          git commit -m 'Remove temporary Facebook image workflow' || true
+          git push || true

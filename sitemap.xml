@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://service-electric.ro/</loc>
-  </url>
-  <url>
-    <loc>https://service-electric.ro/oferta-bft.html</loc>
-  </url>
-  <url>
-    <loc>https://service-electric.ro/interfoane-botosani.html</loc>
-  </url>
+  <url><loc>https://service-electric.ro/</loc></url>
+  <url><loc>https://service-electric.ro/oferta-bft.html</loc></url>
+  <url><loc>https://service-electric.ro/interfoane-botosani.html</loc></url>
+  <url><loc>https://service-electric.ro/videointerfoane.html</loc></url>
+  <url><loc>https://service-electric.ro/control-acces.html</loc></url>
+  <url><loc>https://service-electric.ro/automatizari.html</loc></url>
+  <url><loc>https://service-electric.ro/supraveghere-video.html</loc></url>
+  <url><loc>https://service-electric.ro/sisteme-alarma.html</loc></url>
 </urlset>

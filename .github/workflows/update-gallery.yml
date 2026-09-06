@@ -1,0 +1,60 @@
+name: Update gallery safely
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-gallery.yml'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update gallery section only
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          start = s.find('<section class="projects" id="lucrari">')
+          if start < 0:
+              raise SystemExit('Gallery section not found')
+          end = s.find('</section>', start)
+          if end < 0:
+              raise SystemExit('Gallery section end not found')
+          end += len('</section>')
+          new = '''<section class="projects" id="lucrari"><div class="wrap"><div class="head"><div class="ey">Lucrări realizate</div><h2>Lucrări reale, rezultate reale.</h2><p>O selecție de lucrări executate și configurate de SERVICE ELECTRIC.</p></div><div class="projectGrid projectGridSingle"><div class="projectCard galleryCard"><div class="galleryPhotos"><button class="galleryPhoto" type="button" data-gallery-index="0" aria-label="Deschide fotografia 1"><img src="/images/IMG_20260404_101440.jpg" alt="Lucrare reală SERVICE ELECTRIC – interfonie și automatizare"></button><button class="galleryPhoto" type="button" data-gallery-index="1" aria-label="Deschide fotografia 2"><img src="/images/IMG_2238.JPG" alt="Lucrare reală SERVICE ELECTRIC – automatizare poartă"></button><button class="galleryPhoto" type="button" data-gallery-index="2" aria-label="Deschide fotografia 3"><img src="/images/IMG_2240.JPG" alt="Lucrare reală SERVICE ELECTRIC – control acces"></button></div><div class="projectInfo"><div class="projectTag">GALERIE FOTO • 3 LUCRĂRI</div><h3>Lucrări SERVICE ELECTRIC</h3><p>Interfonie • automatizări • control acces</p></div></div></div><div class="galleryMore">3 fotografii • Apasă pe o fotografie pentru galerie</div></div></section>'''
+          p.write_text(s[:start] + new + s[end:], encoding='utf-8')
+          PY
+      - name: Add gallery styling and lightbox
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          css='''<style id="single-gallery-style">.projectGridSingle{grid-template-columns:1fr;max-width:980px;margin:0 auto}.galleryCard{min-height:420px}.galleryPhotos{display:grid;grid-template-columns:2fr 1fr 1fr;height:420px}.galleryPhoto{padding:0;border:0;background:#071321;overflow:hidden;cursor:zoom-in;min-width:0}.galleryPhoto img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s ease,filter .35s ease}.galleryPhoto:hover img,.galleryPhoto:focus-visible img{transform:scale(1.045);filter:brightness(1.08)}.galleryPhoto:focus-visible{outline:2px solid #55b5ff;outline-offset:-3px;position:relative;z-index:3}.galleryCard .projectInfo{bottom:25px}.galleryLightbox{position:fixed;inset:0;z-index:10001;background:#020811f5;display:none;align-items:center;justify-content:center;padding:24px}.galleryLightbox.open{display:flex}.galleryLightbox img{max-width:92vw;max-height:86vh;width:auto;height:auto;object-fit:contain;border-radius:16px;box-shadow:0 30px 90px #0009}.galleryLBBtn{position:absolute;width:46px;height:46px;border:1px solid #ffffff35;border-radius:50%;background:#071321e8;color:#fff;display:grid;place-items:center;font-size:23px;cursor:pointer}.galleryLBBtn:hover{background:#0d2d47;border-color:#55b5ff}.galleryLBClose{top:20px;right:20px}.galleryLBPrev{left:20px;top:50%;transform:translateY(-50%)}.galleryLBNext{right:20px;top:50%;transform:translateY(-50%)}.galleryLBCount{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#c8d8e5;font-size:10px;font-weight:900;letter-spacing:1.2px}@media(max-width:700px){.galleryCard{min-height:330px}.galleryPhotos{height:330px;grid-template-columns:1.55fr 1fr 1fr}.galleryLBPrev{left:10px}.galleryLBNext{right:10px}.galleryLightbox{padding:12px}}@media(max-width:520px){.galleryCard{min-height:280px}.galleryPhotos{height:280px}.galleryMore{font-size:10px}} </style>'''
+          if 'id="single-gallery-style"' not in s:
+              s=s.replace('</head>',css+'</head>',1)
+          js='''<script id="single-gallery-script">(()=>{const photos=["/images/IMG_20260404_101440.jpg","/images/IMG_2238.JPG","/images/IMG_2240.JPG"];const lb=document.createElement("div");lb.className="galleryLightbox";lb.setAttribute("aria-hidden","true");lb.innerHTML='<button class="galleryLBBtn galleryLBClose" aria-label="Închide">×</button><button class="galleryLBBtn galleryLBPrev" aria-label="Fotografia anterioară">‹</button><img alt="Lucrare SERVICE ELECTRIC"><button class="galleryLBBtn galleryLBNext" aria-label="Fotografia următoare">›</button><div class="galleryLBCount"></div>';document.body.appendChild(lb);const im=lb.querySelector("img"),count=lb.querySelector(".galleryLBCount");let i=0;const show=n=>{i=(n+photos.length)%photos.length;im.src=photos[i];count.textContent=(i+1)+" / "+photos.length};const open=n=>{show(n);lb.classList.add("open");lb.setAttribute("aria-hidden","false");document.body.style.overflow="hidden"};const close=()=>{lb.classList.remove("open");lb.setAttribute("aria-hidden","true");document.body.style.overflow=""};document.querySelectorAll(".galleryPhoto").forEach(b=>b.addEventListener("click",()=>open(+b.dataset.galleryIndex)));lb.querySelector(".galleryLBClose").onclick=close;lb.querySelector(".galleryLBPrev").onclick=()=>show(i-1);lb.querySelector(".galleryLBNext").onclick=()=>show(i+1);lb.addEventListener("click",e=>{if(e.target===lb)close()});document.addEventListener("keydown",e=>{if(!lb.classList.contains("open"))return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")show(i-1);if(e.key==="ArrowRight")show(i+1)})})();</script>'''
+          if 'id="single-gallery-script"' not in s:
+              s=s.replace('</body>',js+'</body>',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Verify and commit
+        run: |
+          grep -q 'projectGridSingle' index.html
+          test "$(grep -o 'class="galleryPhoto"' index.html | wc -l)" -eq 3
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Simplify homepage gallery to one card' || true
+          git push
+      - name: Remove temporary workflow
+        if: success()
+        run: |
+          git rm .github/workflows/update-gallery.yml
+          git commit -m 'Remove temporary gallery workflow'
+          git push

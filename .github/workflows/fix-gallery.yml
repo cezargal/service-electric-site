@@ -1,0 +1,33 @@
+name: Fix gallery images
+on:
+  push:
+    paths:
+      - ".github/workflows/fix-gallery.yml"
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update gallery
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          reps={
+            '/images/lucrari-01-03.webp':'/images/IMG_20260404_101440.jpg',
+            '/images/lucrari-04-06.webp':'/images/IMG_2238.JPG',
+            '/images/lucrari-07-09.webp':'/images/IMG_2240.JPG',
+          }
+          for a,b in reps.items():
+            s=s.replace(a,b)
+          p.write_text(s,encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/fix-gallery.yml
+          git add index.html .github/workflows/fix-gallery.yml
+          git commit -m 'Folosește fotografiile originale în galeria de lucrări'
+          git push

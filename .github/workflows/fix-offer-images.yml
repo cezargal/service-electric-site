@@ -1,0 +1,36 @@
+name: Fix offer image loading
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use reliable image URLs on offer page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('oferta-bft.html')
+          s = p.read_text(encoding='utf-8')
+          base = 'https://raw.githubusercontent.com/cezargal/service-electric-site/main/assets/'
+          s = s.replace('/assets/bft-kit.jpg', base + 'bft-kit.jpg')
+          s = s.replace('/assets/nice-robus-600hs.jpg?v=5', base + 'nice-robus-600hs.jpg')
+          s = s.replace('/assets/nice-robus-600hs.jpg', base + 'nice-robus-600hs.jpg')
+          s = s.replace('https://service-electric.ro/assets/nice-robus-600hs.jpg', base + 'nice-robus-600hs.jpg')
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit fix and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/fix-offer-images.yml
+          git add -A
+          git commit -m 'Fix BFT and Nice offer images'
+          git push origin main

@@ -1,0 +1,41 @@
+name: Polish header layout
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Polish header only
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '/* HEADER-POLISH-2026 */'
+          if marker not in s:
+              css = '<style id="header-polish">'+marker+'.nav{gap:18px}.brand{margin-right:0;flex:0 0 auto}.links{flex:1;justify-content:center;gap:17px;white-space:nowrap;font-size:12.5px}.links a{white-space:nowrap}.portalNav{padding:10px 12px}.phoneGroup{gap:10px;flex:0 0 auto}.phoneItem small{font-size:6.5px}.phoneItem a{font-size:12px}.phoneDivider{height:30px}@media(max-width:1180px) and (min-width:951px){.nav{gap:12px}.links{gap:11px;font-size:11.5px}.portalNav{padding:9px 10px}.phoneGroup{gap:8px}.phoneItem a{font-size:11px}}'+'</style>'
+              s = s.replace('</head>', css+'</head>', 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+          rm .github/workflows/polish-header-once.yml
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/workflows/polish-header-once.yml
+          git diff --cached --quiet && exit 0
+          git commit -m 'Polish header spacing and alignment'
+          git push

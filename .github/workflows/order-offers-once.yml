@@ -1,0 +1,35 @@
+name: Order offers once
+on:
+  push:
+    paths:
+      - '.github/workflows/order-offers-once.yml'
+jobs:
+  order:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Put Nice offer first
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('oferta-bft.html')
+          s=p.read_text(encoding='utf-8')
+          m=re.search(r'<section id="nice-offer">.*?</section></main>',s,re.S)
+          if not m:
+              raise SystemExit('Nice section not found')
+          nice=m.group(0)[:-len('</main>')]
+          s=s[:m.start()]+s[m.end()-len('</main>'):]
+          s=s.replace('<title>Ofertă specială BFT KUSTOS BT B40 INT | SERVICE ELECTRIC</title>','<title>Oferte automatizări porți | Nice și BFT | SERVICE ELECTRIC</title>',1)
+          s=s.replace('<meta name="description" content="Kit automatizare porți batante BFT KUSTOS BT B40 INT — 3.950 lei cu instalare.">','<meta name="description" content="Oferte automatizări porți: Nice Robus 600 HS la 3.790 lei și BFT KUSTOS BT B40 INT la 3.950 lei, cu montaj inclus.">',1)
+          s=s.replace('<main class="hero">','<main class="hero">'+nice,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm -f .github/workflows/order-offers-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add oferta-bft.html .github/workflows/order-offers-once.yml
+          git commit -m 'Show Nice first and BFT second [skip ci]'
+          git push

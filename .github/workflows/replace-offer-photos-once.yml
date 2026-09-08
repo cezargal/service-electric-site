@@ -1,0 +1,47 @@
+name: Replace offer photos once
+on:
+  push:
+    paths:
+      - '.github/workflows/replace-offer-photos-once.yml'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace blurry product images
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('oferta-bft.html')
+          s=p.read_text(encoding='utf-8')
+          urls=[
+            'https://bft.ro/images/detailed/11/Kustos_Bt_b.jpg',
+            'https://dlya-vorot.ru/image/cache/catalog/photo2024/nice/avtomatika-dlya-otkatnyh-vorot-nice-rb600-kce-1480x1600.png'
+          ]
+          pattern=r'<img\s+src="data:image/jpeg;base64,[^"]+"([^>]*>)'
+          i=0
+          def repl(m):
+            nonlocal_i=None
+            global i
+            u=urls[i]
+            i+=1
+            return '<img src="'+u+'"'+m.group(1)
+          s,n=re.subn(pattern,repl,s,count=2)
+          if n != 2:
+            raise SystemExit(f'Expected 2 embedded product images, found {n}')
+          p.write_text(s,encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add oferta-bft.html
+          git commit -m 'Use clear high resolution offer product photos' || exit 0
+          git push
+      - name: Remove one-time workflow
+        run: |
+          rm -f .github/workflows/replace-offer-photos-once.yml
+          git add .github/workflows/replace-offer-photos-once.yml
+          git commit -m 'Remove one-time offer photo workflow' || exit 0
+          git push

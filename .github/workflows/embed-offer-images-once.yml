@@ -1,0 +1,40 @@
+name: Embed offer images once
+on:
+  push:
+    branches: [main]
+jobs:
+  embed:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download official product images
+        run: |
+          mkdir -p assets
+          curl -L --fail --retry 3 'https://bft.ro/images/thumbnails/35/35/detailed/13/Kustos_Bt_b.jpg' -o assets/bft-offer.jpg
+          curl -L --fail --retry 3 'https://nice.ro/images/thumbnails/35/35/detailed/13/nice-robus-600HS-kit-BDKCE_-ROA6.jpg' -o assets/nice-offer.jpg
+      - name: Embed images directly in offer HTML
+        run: |
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+          p=Path('oferta-bft.html')
+          s=p.read_text(encoding='utf-8')
+          b=base64.b64encode(Path('assets/bft-offer.jpg').read_bytes()).decode()
+          n=base64.b64encode(Path('assets/nice-offer.jpg').read_bytes()).decode()
+          s=s.replace('data:image/jpeg;base64,REPLACE_BFT','data:image/jpeg;base64,'+b)
+          s=s.replace('data:image/jpeg;base64,REPLACE_NICE','data:image/jpeg;base64,'+n)
+          s=s.replace('https://bft.ro/images/thumbnails/35/35/detailed/13/Kustos_Bt_b.jpg','assets/bft-offer.jpg')
+          s=s.replace('https://nice.ro/images/thumbnails/35/35/detailed/13/nice-robus-600HS-kit-BDKCE_-ROA6.jpg','assets/nice-offer.jpg')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Save changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add oferta-bft.html assets/bft-offer.jpg assets/nice-offer.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'Embed polished BFT and Nice offer images [skip ci]'
+          git push

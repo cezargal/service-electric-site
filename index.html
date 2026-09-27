@@ -238,152 +238,151 @@ html{scroll-padding-top:calc(var(--header-h) + 12px)}
 @media(max-width:600px){.brand{flex:0 1 auto}.brand img{width:270px;max-width:calc(100vw - 20px);height:auto;max-height:58px}}
 @media(max-width:360px){.brand img{width:245px;max-width:calc(100vw - 18px)}}
 </style><style id="mobile-wow-2026">
-/* MOBILE WOW 2 — header premium integrat */
+/* MOBILE HEADER — un singur brand, integrat, fără dublare */
 .mobileHeadPhones,.mobileMenuBtn,.mobileServiceStrip{display:none}
 @media(max-width:600px){
  .top{
-   height:124px!important;
-   background:
-     radial-gradient(circle at 18% 0%,#123a60 0,#081a2b 32%,#04101c 72%)!important;
-   border-bottom:1px solid #168dff!important;
-   box-shadow:0 10px 30px rgba(0,0,0,.34)!important;
+   height:116px!important;
+   background:linear-gradient(180deg,#061522 0%,#081d30 72%,#05111d 100%)!important;
+   border-bottom:1px solid #0877ff!important;
+   box-shadow:0 10px 28px #00000045!important;
  }
  .top:before{
    height:2px!important;
-   background:linear-gradient(90deg,transparent,#55c8ff 18%,#0877ff 50%,#55c8ff 82%,transparent)!important;
+   background:linear-gradient(90deg,transparent,#55c8ff 20%,#0877ff 50%,#55c8ff 80%,transparent)!important;
  }
  .top:after{
    height:2px!important;
    background:linear-gradient(90deg,#0050c8,#55c8ff,#0877ff,#55c8ff,#0050c8)!important;
-   box-shadow:0 0 14px #0877ff99!important;
+   box-shadow:0 0 16px #0877ff99!important;
  }
  .wrap.nav{
    position:relative;
-   height:100%;
    width:100%!important;
-   padding:10px 10px 8px;
-   display:flex;
-   align-items:flex-start!important;
-   gap:0!important;
+   height:100%;
+   padding:7px 9px 7px!important;
+   display:block!important;
  }
+ /* BRAND = un singur logo, fără text HTML suplimentar */
  .brand{
-   position:relative;
-   flex:none!important;
-   width:calc(100% - 49px)!important;
+   position:absolute!important;
+   left:9px!important;
+   right:55px!important;
+   top:7px!important;
+   width:auto!important;
+   height:66px!important;
    max-width:none!important;
-   height:67px;
    padding:0!important;
-   display:flex;
-   align-items:center;
+   display:flex!important;
+   align-items:center!important;
+   justify-content:flex-start!important;
    overflow:visible!important;
+   background:transparent!important;
+   border:0!important;
+   box-shadow:none!important;
    z-index:2;
  }
  .brand:before{
-   content:"";
-   position:absolute;
-   left:-5px;right:4px;top:0;bottom:0;
-   border:1px solid #2d9eff66;
-   border-radius:14px;
-   background:linear-gradient(135deg,#0b263d,#061625);
-   box-shadow:inset 0 0 20px #0877ff0c,0 6px 20px #00000035;
-   z-index:-1;
+   content:""!important;
+   position:absolute!important;
+   left:-2px!important;right:0!important;top:0!important;bottom:0!important;
+   border:1px solid #2d9eff55!important;
+   border-radius:14px!important;
+   background:linear-gradient(135deg,#0c2941,#071827)!important;
+   box-shadow:inset 0 0 20px #0877ff10,0 5px 18px #00000035!important;
+   z-index:-1!important;
  }
  .brand:after{
+   content:""!important;
    display:block!important;
-   content:"";
-   position:absolute;
-   left:12px;right:28px;bottom:4px;
-   height:2px;
-   border-radius:99px;
-   background:linear-gradient(90deg,#0877ff,#55c8ff,transparent);
-   opacity:1;
+   position:absolute!important;
+   left:14px!important;right:25px!important;bottom:4px!important;
+   height:2px!important;
+   border-radius:99px!important;
+   background:linear-gradient(90deg,#0877ff,#55c8ff,transparent)!important;
+   opacity:1!important;
  }
  .brand img{
+   display:block!important;
    width:100%!important;
+   height:100%!important;
    max-width:none!important;
-   height:auto!important;
-   max-height:63px!important;
-   object-fit:contain;
-   filter:drop-shadow(0 5px 12px rgba(8,119,255,.28))!important;
+   max-height:none!important;
+   object-fit:contain!important;
+   object-position:left center!important;
+   filter:drop-shadow(0 5px 12px #0877ff35)!important;
  }
  .mobileMenuBtn{
-   display:flex;
-   position:absolute;
-   right:10px;top:24px;
-   width:40px;height:40px;
-   border:1px solid #55b5ff66;
-   border-radius:11px;
-   background:linear-gradient(145deg,#0d2c47,#071726);
-   box-shadow:0 7px 18px #00000040,0 0 14px #0877ff1f;
-   align-items:center;justify-content:center;
-   flex-direction:column;gap:5px;padding:0;
-   z-index:5;
+   display:flex!important;
+   position:absolute!important;
+   right:9px!important;top:21px!important;
+   width:38px!important;height:38px!important;
+   flex:0 0 38px!important;
+   border:1px solid #55b5ff66!important;
+   border-radius:10px!important;
+   background:linear-gradient(145deg,#0d2c47,#071726)!important;
+   box-shadow:0 7px 18px #00000045,0 0 14px #0877ff22!important;
+   align-items:center!important;justify-content:center!important;
+   flex-direction:column!important;gap:5px!important;padding:0!important;
+   z-index:6;
  }
- .mobileMenuBtn:before{
-   content:"";
-   position:absolute;inset:4px;border:1px solid #0877ff22;border-radius:7px;
- }
- .mobileMenuBtn i{display:block;width:19px;height:2px;background:#75d0ff;border-radius:9px;box-shadow:0 0 7px #0877ff}
+ .mobileMenuBtn:before{content:"";position:absolute;inset:4px;border:1px solid #0877ff22;border-radius:7px}
+ .mobileMenuBtn i{display:block!important;width:18px!important;height:2px!important;background:#75d0ff!important;border-radius:9px;box-shadow:0 0 7px #0877ff}
  .mobileHeadPhones{
-   display:grid;
+   display:grid!important;
    grid-template-columns:1fr 1fr;
-   position:absolute;
-   left:10px;right:10px;bottom:8px;
-   gap:7px;
-   z-index:3;
+   position:absolute!important;
+   left:9px!important;right:9px!important;bottom:7px!important;
+   gap:6px!important;
+   z-index:4;
  }
  .mobileHeadPhones a{
    min-width:0;
-   display:flex;flex-direction:row;align-items:center;justify-content:space-between;
-   gap:6px;padding:6px 9px;
+   height:32px;
+   display:flex!important;flex-direction:column!important;
+   justify-content:center!important;
+   padding:4px 8px!important;
    text-decoration:none;
-   border:1px solid #2d9eff45;
+   border:1px solid #2d9eff50;
    border-radius:9px;
-   background:linear-gradient(135deg,#0b2439,#071827);
-   box-shadow:inset 0 0 14px #0877ff08;
+   background:linear-gradient(135deg,#0b263d,#071725);
+   box-shadow:inset 0 0 14px #0877ff09;
  }
- .mobileHeadPhones b{font-size:10px;line-height:1;color:#fff;white-space:nowrap}
- .mobileHeadPhones small{font-size:5.3px;line-height:1;color:#70c8ff;letter-spacing:.45px;font-weight:900;white-space:nowrap}
+ .mobileHeadPhones b{font-size:9px!important;line-height:1!important;color:#fff!important;white-space:nowrap}
+ .mobileHeadPhones small{font-size:5px!important;line-height:1!important;color:#70c8ff!important;letter-spacing:.4px;font-weight:900;white-space:nowrap;margin-top:3px}
  .links{
-   display:none;
-   position:absolute;top:118px;left:10px;right:10px;z-index:130;
-   padding:10px!important;flex-direction:column;align-items:stretch;
-   background:#071827f5!important;
-   border:1px solid #2d9eff66!important;
-   border-radius:15px!important;
-   box-shadow:0 18px 45px #00000070!important;
+   display:none!important;
+   position:absolute!important;top:111px!important;left:9px!important;right:9px!important;
+   z-index:130;padding:9px!important;flex-direction:column!important;align-items:stretch!important;
+   background:#071827f7!important;border:1px solid #2d9eff66!important;
+   border-radius:15px!important;box-shadow:0 18px 45px #00000075!important;
  }
- .links.mobileOpen{display:flex}
+ .links.mobileOpen{display:flex!important}
  .links a{padding:12px 13px!important;border-radius:9px;color:#fff!important}
  .hero{min-height:auto!important}
  .heroGrid{padding:34px 0 48px!important;gap:16px}
  .heroContent{width:100%}
  .hero .ey{margin-bottom:10px}
  .hero h1{font-size:clamp(43px,12.5vw,53px)!important;line-height:.98!important;letter-spacing:-3px!important;margin:12px 0 19px!important}
- .hero p{font-size:15.5px!important;line-height:1.5!important;color:#b7c8d8!important;margin-bottom:0}
+ .hero p{font-size:15.5px!important;line-height:1.5!important;color:#b7c8d8!important}
  .actions{margin-top:22px!important;gap:10px!important}
  .actions .btn{min-height:58px!important;border-radius:17px!important;font-size:15px!important;font-weight:900!important}
  .heroPhones,.heroNote,.visual{display:none!important}
- .mobileServiceStrip{
-   display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
-   margin-top:25px;padding:14px 5px 5px;
-   border-top:1px solid #168dff44;
- }
+ .mobileServiceStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:25px;padding:14px 5px 5px;border-top:1px solid #168dff44}
  .mobileServiceStrip a{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;min-width:0}
  .mobileServiceStrip img{width:58px;height:58px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 8px #0877ff55);margin-bottom:7px}
  .mobileServiceStrip b{font-size:8px;line-height:1.1;color:#fff;letter-spacing:.25px}
  .mobileServiceStrip small{font-size:6.5px;line-height:1.15;color:#80bfff;margin-top:4px}
 }
 @media(max-width:390px){
- .top{height:119px!important}
- .brand{width:calc(100% - 45px)!important;height:62px}
- .brand img{max-height:58px!important}
- .mobileMenuBtn{right:9px;top:21px;width:37px;height:37px}
- .mobileHeadPhones{left:9px;right:9px;bottom:7px;gap:5px}
- .mobileHeadPhones a{padding:5px 7px}
- .mobileHeadPhones b{font-size:8.5px}
- .mobileHeadPhones small{font-size:4.7px}
- .links{top:113px}
+ .top{height:112px!important}
+ .brand{right:51px!important;height:62px!important}
+ .mobileMenuBtn{right:8px!important;top:19px!important;width:36px!important;height:36px!important}
+ .mobileHeadPhones{left:8px!important;right:8px!important;bottom:6px!important;gap:5px!important}
+ .mobileHeadPhones a{height:30px;padding:3px 7px!important}
+ .mobileHeadPhones b{font-size:8.2px!important}
+ .mobileHeadPhones small{font-size:4.6px!important}
+ .links{top:107px!important}
  .mobileServiceStrip img{width:51px;height:51px}
  .mobileServiceStrip b{font-size:7px}
 }

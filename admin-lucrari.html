@@ -25,6 +25,51 @@ const SUPABASE_KEY='sb_publishable_R3KwKUwz9Pwm0oQbap7PvQ_g1S-Citz';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);let selected=[];
 const publicUrl=p=>sb.storage.from('lucrari').getPublicUrl(p).data.publicUrl;
+const WATERMARK_URL='/assets/watermark-service-electric.svg';
+let watermarkImagePromise=null;
+function loadWatermark(){
+  if(!watermarkImagePromise){
+    watermarkImagePromise=new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>resolve(img);
+      img.onerror=()=>reject(new Error('Filigranul nu a putut fi încărcat.'));
+      img.src=WATERMARK_URL;
+    });
+  }
+  return watermarkImagePromise;
+}
+async function applyWatermark(file){
+  if(!/^image\/(jpeg|png|webp)$/i.test(file.type||'')){
+    throw new Error('Fotografiile HEIC nu pot fi procesate direct în browser. Salvează fotografia ca JPG și încearcă din nou.');
+  }
+  const url=URL.createObjectURL(file);
+  try{
+    const image=await new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>resolve(img);
+      img.onerror=()=>reject(new Error('Fotografia nu poate fi citită.'));
+      img.src=url;
+    });
+    const watermark=await loadWatermark();
+    const canvas=document.createElement('canvas');
+    canvas.width=image.naturalWidth||image.width;
+    canvas.height=image.naturalHeight||image.height;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(image,0,0,canvas.width,canvas.height);
+    const margin=Math.max(18,Math.round(canvas.width*.018));
+    const wmWidth=Math.min(Math.round(canvas.width*.34),900);
+    const wmHeight=Math.round(wmWidth*300/1200);
+    ctx.save();
+    ctx.globalAlpha=.78;
+    ctx.drawImage(watermark,canvas.width-wmWidth-margin,canvas.height-wmHeight-margin,wmWidth,wmHeight);
+    ctx.restore();
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.9));
+    if(!blob)throw new Error('Nu am putut pregăti fotografia.');
+    return new File([blob],(file.name.replace(/\.[^.]+$/,'')||'fotografie')+'.jpg',{type:'image/jpeg',lastModified:Date.now()});
+  }finally{
+    URL.revokeObjectURL(url);
+  }
+}
 function msg(el,text,ok=false){el.innerHTML=`<div class="${ok?'ok':'err'}">${text}</div>`}
 function resetPreviews(){selected=[];$('files').value='';$('previews').innerHTML=''}
 function renderPreviews(){ $('previews').innerHTML=selected.map((f,i)=>`<div class="preview"><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-remove="${i}">×</button></div>`).join('');document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{selected.splice(+b.dataset.remove,1);renderPreviews()}) }
@@ -38,7 +83,7 @@ $('password').onkeydown=e=>{if(e.key==='Enter')$('login').click()};$('logout').o
 async function loadWorks(){const {data:works,error}=await sb.from('lucrari_executate').select('*').order('data_lucrarii',{ascending:false}).order('created_at',{ascending:false});if(error){msg($('formMsg'),'Nu pot încărca lucrările: '+error.message);return}const {data:photos}=await sb.from('lucrari_executate_poze').select('*').order('sort_order',{ascending:true});const map={};(photos||[]).forEach(p=>(map[p.lucrare_id]??=[]).push(p));if(!works?.length){$('list').innerHTML='<div class="empty">Nu există încă lucrări. Adaugă prima lucrare mai sus.</div>';return}$('list').innerHTML=works.map(w=>{const ps=map[w.id]||[];const cover=ps[0]?publicUrl(ps[0].storage_path):'';const date=w.data_lucrarii?new Date(w.data_lucrarii+'T00:00:00').toLocaleDateString('ro-RO'):'';return `<article class="card"><div class="cover">${cover?`<img src="${cover}" alt="">`:''}</div><div class="cardBody"><div class="meta">${date}${w.locatie?' · '+esc(w.locatie):''}</div><h3>${esc(w.titlu)}</h3><div class="desc">${esc(w.descriere||'Fără descriere')}</div><div class="thumbs">${ps.map(p=>`<img src="${publicUrl(p.storage_path)}" alt="">`).join('')}</div><div class="cardActions"><button class="btn danger" data-delete="${w.id}">Șterge lucrarea</button></div></div></article>`}).join('');document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteWork(b.dataset.delete,map[b.dataset.delete]||[]))}
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\\':'&#92;'}[c]))}
 async function deleteWork(id,photos){if(!confirm('Ștergi această lucrare și toate fotografiile ei?'))return;const paths=photos.map(p=>p.storage_path);if(paths.length)await sb.storage.from('lucrari').remove(paths);await sb.from('lucrari_executate_poze').delete().eq('lucrare_id',id);const {error}=await sb.from('lucrari_executate').delete().eq('id',id);if(error){alert('Nu am putut șterge lucrarea: '+error.message);return}loadWorks()}
-$('form').onsubmit=async e=>{e.preventDefault();if(!selected.length){msg($('formMsg'),'Adaugă cel puțin o fotografie.');return}const save=$('save');save.disabled=true;save.classList.add('spinner');$('formMsg').innerHTML='';let workId=null;try{const {data:{user}}=await sb.auth.getUser();if(!user)throw new Error('Sesiunea a expirat.');const {data:work,error}=await sb.from('lucrari_executate').insert({titlu:$('title').value.trim(),descriere:$('description').value.trim()||null,data_lucrarii:$('date').value||null,locatie:$('location').value.trim()||null,created_by:user.id}).select('id').single();if(error)throw error;workId=work.id;const rows=[];for(let i=0;i<selected.length;i++){const f=selected[i];const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${workId}/${crypto.randomUUID()}.${ext}`;const up=await sb.storage.from('lucrari').upload(path,f,{contentType:f.type||'image/jpeg',upsert:false});if(up.error)throw up.error;rows.push({lucrare_id:workId,storage_path:path,sort_order:i})}const {error:pe}=await sb.from('lucrari_executate_poze').insert(rows);if(pe)throw pe;msg($('formMsg'),'Lucrarea a fost adăugată. Acum este disponibilă pe site.',true);$('form').reset();loadWorks()}catch(err){console.error(err);if(workId){await sb.from('lucrari_executate_poze').delete().eq('lucrare_id',workId);await sb.from('lucrari_executate').delete().eq('id',workId)}msg($('formMsg'),'Nu am putut salva lucrarea: '+(err.message||err))}finally{save.disabled=false;save.classList.remove('spinner')}};
+$('form').onsubmit=async e=>{e.preventDefault();if(!selected.length){msg($('formMsg'),'Adaugă cel puțin o fotografie.');return}const save=$('save');save.disabled=true;save.classList.add('spinner');$('formMsg').innerHTML='';let workId=null;try{const {data:{user}}=await sb.auth.getUser();if(!user)throw new Error('Sesiunea a expirat.');const {data:work,error}=await sb.from('lucrari_executate').insert({titlu:$('title').value.trim(),descriere:$('description').value.trim()||null,data_lucrarii:$('date').value||null,locatie:$('location').value.trim()||null,created_by:user.id}).select('id').single();if(error)throw error;workId=work.id;const rows=[];for(let i=0;i<selected.length;i++){const original=selected[i];const f=await applyWatermark(original);const path=`${workId}/${crypto.randomUUID()}.jpg`;const up=await sb.storage.from('lucrari').upload(path,f,{contentType:'image/jpeg',upsert:false});if(up.error)throw up.error;rows.push({lucrare_id:workId,storage_path:path,sort_order:i})}const {error:pe}=await sb.from('lucrari_executate_poze').insert(rows);if(pe)throw pe;msg($('formMsg'),'Lucrarea a fost adăugată. Acum este disponibilă pe site.',true);$('form').reset();loadWorks()}catch(err){console.error(err);if(workId){await sb.from('lucrari_executate_poze').delete().eq('lucrare_id',workId);await sb.from('lucrari_executate').delete().eq('id',workId)}msg($('formMsg'),'Nu am putut salva lucrarea: '+(err.message||err))}finally{save.disabled=false;save.classList.remove('spinner')}};
 $('refresh').onclick=loadWorks;boot();
 </script>
 </body></html>

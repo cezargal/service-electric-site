@@ -238,153 +238,73 @@ html{scroll-padding-top:calc(var(--header-h) + 12px)}
 @media(max-width:600px){.brand{flex:0 1 auto}.brand img{width:270px;max-width:calc(100vw - 20px);height:auto;max-height:58px}}
 @media(max-width:360px){.brand img{width:245px;max-width:calc(100vw - 18px)}}
 </style><style id="mobile-wow-2026">
-/* MOBILE HEADER — un singur brand, integrat, fără dublare */
+/* MOBILE HEADER FINAL — compact, curat, fără dublare */
 .mobileHeadPhones,.mobileMenuBtn,.mobileServiceStrip{display:none}
 @media(max-width:600px){
- .top{
-   height:116px!important;
-   background:linear-gradient(180deg,#061522 0%,#081d30 72%,#05111d 100%)!important;
-   border-bottom:1px solid #0877ff!important;
-   box-shadow:0 10px 28px #00000045!important;
- }
- .top:before{
-   height:2px!important;
-   background:linear-gradient(90deg,transparent,#55c8ff 20%,#0877ff 50%,#55c8ff 80%,transparent)!important;
- }
- .top:after{
-   height:2px!important;
-   background:linear-gradient(90deg,#0050c8,#55c8ff,#0877ff,#55c8ff,#0050c8)!important;
-   box-shadow:0 0 16px #0877ff99!important;
- }
- .wrap.nav{
-   position:relative;
-   width:100%!important;
-   height:100%;
-   padding:7px 9px 7px!important;
-   display:block!important;
- }
- /* BRAND = un singur logo, fără text HTML suplimentar */
+ .top{height:94px!important;background:#061522!important;border-bottom:1px solid #168dff!important;box-shadow:0 8px 24px #0006!important}
+ .top:before{height:2px!important;background:linear-gradient(90deg,transparent,#55c8ff,#0877ff,#55c8ff,transparent)!important}
+ .top:after{height:2px!important;background:#0877ff!important;box-shadow:0 0 12px #0877ff!important}
+ .wrap.nav{width:100%!important;height:100%;padding:6px 9px!important;display:flex!important;align-items:center!important;gap:8px!important}
  .brand{
-   position:absolute!important;
-   left:9px!important;
-   right:55px!important;
-   top:7px!important;
-   width:auto!important;
-   height:66px!important;
-   max-width:none!important;
-   padding:0!important;
-   display:flex!important;
-   align-items:center!important;
-   justify-content:flex-start!important;
-   overflow:visible!important;
-   background:transparent!important;
-   border:0!important;
-   box-shadow:none!important;
-   z-index:2;
+   position:relative!important;left:auto!important;right:auto!important;top:auto!important;
+   width:auto!important;flex:1!important;height:66px!important;max-width:none!important;
+   padding:0!important;display:flex!important;align-items:center!important;
+   background:transparent!important;border:0!important;box-shadow:none!important;overflow:hidden!important;
  }
- .brand:before{
-   content:""!important;
-   position:absolute!important;
-   left:-2px!important;right:0!important;top:0!important;bottom:0!important;
-   border:1px solid #2d9eff55!important;
-   border-radius:14px!important;
-   background:linear-gradient(135deg,#0c2941,#071827)!important;
-   box-shadow:inset 0 0 20px #0877ff10,0 5px 18px #00000035!important;
-   z-index:-1!important;
- }
- .brand:after{
-   content:""!important;
-   display:block!important;
-   position:absolute!important;
-   left:14px!important;right:25px!important;bottom:4px!important;
-   height:2px!important;
-   border-radius:99px!important;
-   background:linear-gradient(90deg,#0877ff,#55c8ff,transparent)!important;
-   opacity:1!important;
- }
+ .brand:before{display:none!important}
+ .brand:after{display:none!important}
  .brand img{
-   display:block!important;
-   width:100%!important;
-   height:100%!important;
-   max-width:none!important;
-   max-height:none!important;
-   object-fit:contain!important;
-   object-position:left center!important;
-   filter:drop-shadow(0 5px 12px #0877ff35)!important;
+   width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+   object-fit:contain!important;object-position:left center!important;
+   filter:drop-shadow(0 4px 10px #0877ff38)!important;
  }
- .mobileMenuBtn{
-   display:flex!important;
-   position:absolute!important;
-   right:9px!important;top:21px!important;
-   width:38px!important;height:38px!important;
-   flex:0 0 38px!important;
-   border:1px solid #55b5ff66!important;
-   border-radius:10px!important;
-   background:linear-gradient(145deg,#0d2c47,#071726)!important;
-   box-shadow:0 7px 18px #00000045,0 0 14px #0877ff22!important;
-   align-items:center!important;justify-content:center!important;
-   flex-direction:column!important;gap:5px!important;padding:0!important;
-   z-index:6;
- }
- .mobileMenuBtn:before{content:"";position:absolute;inset:4px;border:1px solid #0877ff22;border-radius:7px}
- .mobileMenuBtn i{display:block!important;width:18px!important;height:2px!important;background:#75d0ff!important;border-radius:9px;box-shadow:0 0 7px #0877ff}
  .mobileHeadPhones{
-   display:grid!important;
-   grid-template-columns:1fr 1fr;
-   position:absolute!important;
-   left:9px!important;right:9px!important;bottom:7px!important;
-   gap:6px!important;
-   z-index:4;
+   display:flex!important;flex-direction:column!important;justify-content:center!important;
+   width:82px!important;flex:0 0 82px!important;gap:5px!important;
  }
  .mobileHeadPhones a{
-   min-width:0;
-   height:32px;
-   display:flex!important;flex-direction:column!important;
-   justify-content:center!important;
-   padding:4px 8px!important;
-   text-decoration:none;
-   border:1px solid #2d9eff50;
-   border-radius:9px;
-   background:linear-gradient(135deg,#0b263d,#071725);
-   box-shadow:inset 0 0 14px #0877ff09;
+   display:flex!important;flex-direction:column!important;text-decoration:none!important;
+   padding:4px 5px!important;border-left:2px solid #0877ff!important;
+   background:#0a2032!important;border-radius:0 6px 6px 0!important;
  }
- .mobileHeadPhones b{font-size:9px!important;line-height:1!important;color:#fff!important;white-space:nowrap}
- .mobileHeadPhones small{font-size:5px!important;line-height:1!important;color:#70c8ff!important;letter-spacing:.4px;font-weight:900;white-space:nowrap;margin-top:3px}
+ .mobileHeadPhones b{font-size:8px!important;color:#fff!important;line-height:1!important;white-space:nowrap!important}
+ .mobileHeadPhones small{font-size:4.2px!important;color:#67caff!important;letter-spacing:.3px!important;margin-top:2px!important;white-space:nowrap!important}
+ .mobileMenuBtn{
+   display:flex!important;width:35px!important;height:35px!important;flex:0 0 35px!important;
+   border:1px solid #168dff88!important;border-radius:9px!important;background:#092137!important;
+   align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;padding:0!important;
+ }
+ .mobileMenuBtn:before{display:none!important}
+ .mobileMenuBtn i{width:17px!important;height:2px!important;background:#71cfff!important;box-shadow:0 0 6px #0877ff!important}
  .links{
-   display:none!important;
-   position:absolute!important;top:111px!important;left:9px!important;right:9px!important;
-   z-index:130;padding:9px!important;flex-direction:column!important;align-items:stretch!important;
-   background:#071827f7!important;border:1px solid #2d9eff66!important;
-   border-radius:15px!important;box-shadow:0 18px 45px #00000075!important;
+   display:none!important;position:absolute!important;top:91px!important;left:9px!important;right:9px!important;
+   z-index:130;padding:8px!important;flex-direction:column!important;
+   background:#071827f8!important;border:1px solid #168dff77!important;border-radius:12px!important;
+   box-shadow:0 15px 35px #0009!important;
  }
  .links.mobileOpen{display:flex!important}
- .links a{padding:12px 13px!important;border-radius:9px;color:#fff!important}
+ .links a{padding:11px 12px!important;color:#fff!important;border-radius:8px!important}
  .hero{min-height:auto!important}
- .heroGrid{padding:34px 0 48px!important;gap:16px}
- .heroContent{width:100%}
- .hero .ey{margin-bottom:10px}
- .hero h1{font-size:clamp(43px,12.5vw,53px)!important;line-height:.98!important;letter-spacing:-3px!important;margin:12px 0 19px!important}
- .hero p{font-size:15.5px!important;line-height:1.5!important;color:#b7c8d8!important}
- .actions{margin-top:22px!important;gap:10px!important}
- .actions .btn{min-height:58px!important;border-radius:17px!important;font-size:15px!important;font-weight:900!important}
+ .heroGrid{padding:30px 0 44px!important;gap:15px!important}
+ .hero h1{font-size:clamp(43px,12.5vw,53px)!important;line-height:.98!important;letter-spacing:-3px!important;margin:10px 0 18px!important}
+ .hero p{font-size:15px!important;line-height:1.5!important}
+ .actions{margin-top:20px!important;gap:9px!important}
+ .actions .btn{min-height:56px!important;border-radius:15px!important;font-size:14px!important}
  .heroPhones,.heroNote,.visual{display:none!important}
- .mobileServiceStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:25px;padding:14px 5px 5px;border-top:1px solid #168dff44}
- .mobileServiceStrip a{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;min-width:0}
- .mobileServiceStrip img{width:58px;height:58px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 8px #0877ff55);margin-bottom:7px}
- .mobileServiceStrip b{font-size:8px;line-height:1.1;color:#fff;letter-spacing:.25px}
- .mobileServiceStrip small{font-size:6.5px;line-height:1.15;color:#80bfff;margin-top:4px}
+ .mobileServiceStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:23px;padding:13px 4px 4px;border-top:1px solid #168dff44}
+ .mobileServiceStrip a{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none}
+ .mobileServiceStrip img{width:54px;height:54px;object-fit:contain;margin-bottom:6px;filter:drop-shadow(0 0 7px #0877ff55)}
+ .mobileServiceStrip b{font-size:7.5px;color:#fff;line-height:1.1}
+ .mobileServiceStrip small{font-size:6px;color:#72caff;margin-top:3px}
 }
 @media(max-width:390px){
- .top{height:112px!important}
- .brand{right:51px!important;height:62px!important}
- .mobileMenuBtn{right:8px!important;top:19px!important;width:36px!important;height:36px!important}
- .mobileHeadPhones{left:8px!important;right:8px!important;bottom:6px!important;gap:5px!important}
- .mobileHeadPhones a{height:30px;padding:3px 7px!important}
- .mobileHeadPhones b{font-size:8.2px!important}
- .mobileHeadPhones small{font-size:4.6px!important}
- .links{top:107px!important}
- .mobileServiceStrip img{width:51px;height:51px}
- .mobileServiceStrip b{font-size:7px}
+ .top{height:90px!important}
+ .brand{height:61px!important}
+ .mobileHeadPhones{width:76px!important;flex-basis:76px!important}
+ .mobileHeadPhones b{font-size:7.4px!important}
+ .mobileHeadPhones small{font-size:3.8px!important}
+ .mobileMenuBtn{width:33px!important;height:33px!important;flex-basis:33px!important}
+ .heroGrid{padding-top:27px!important}
 }
 </style></head><body><header class="top"><div class="wrap nav"><a class="brand" href="#acasa"><img src="logo.svg" alt="SERVICE ELECTRIC by Cezar Gălățanu"></a><div class="mobileHeadPhones"><a href="tel:0733928730"><b>0733 928 730</b><small>INTERFONIE & ACCES</small></a><a href="tel:0749915212"><b>0749 915 212</b><small>AUTOMATIZĂRI & SECURITATE</small></a></div><button class="mobileMenuBtn" type="button" aria-label="Deschide meniul" aria-expanded="false"><i></i><i></i><i></i></button><nav class="links"><a href="#servicii">Servicii</a><a href="/lucrari-executate.html">Lucrări executate</a><a href="#pentru-cine">Pentru cine</a><a href="#proces">Cum lucrăm</a><a class="portalNav" href="https://as.service-electric.ro/" target="_blank" rel="noopener">Sesizare interfonie & acces</a><a href="#contact">Contact</a></nav><div class="phoneGroup"><div class="phoneItem"><small>INTERFONIE & ACCES</small><a href="tel:0733928730">0733 928 730</a></div><div class="phoneDivider"></div><div class="phoneItem secondary"><small>AUTOMATIZĂRI & SECURITATE</small><a href="tel:0749915212">0749 915 212</a></div></div></div></header><a class="superOffer" href="/super-oferta.html" aria-label="Deschide super oferta"><span>🔥</span> SUPER OFERTĂ</a><main><section class="hero" id="acasa"><div class="wrap heroGrid"><div class="heroContent"><div class="ey">Soluții tehnice complete</div><h1>Tehnologie care îți face casa <span>mai sigură.</span></h1><p>Instalăm, modernizăm și reparăm sisteme de interfonie, videointerfonie, control acces, automatizări, supraveghere video și alarmare.</p><div class="actions"><a class="btn outline" href="https://as.service-electric.ro/" target="_blank" rel="noopener">Sesizare interfonie & acces</a><a class="btn outline" href="https://cg.service-electric.ro/" target="_blank" rel="noopener">Oferte & alte servicii</a></div><div class="mobileServiceStrip">
 <a href="/interfoane-botosani.html"><img src="/images/service-interfonie.svg" alt=""><b>INTERFOANE</b><small>AUDIO & VIDEO</small></a>

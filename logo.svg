@@ -1,1 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1677ff"/><stop offset="1" stop-color="#0050c8"/></linearGradient></defs><rect width="640" height="640" rx="64" fill="#fff"/><path d="M320 52C228 119 151 119 86 137v177c0 121 74 205 234 274 160-69 234-153 234-274V137C489 119 412 119 320 52Z" fill="none" stroke="#15181d" stroke-width="28"/><path d="M320 52C228 119 151 119 86 137v177c0 121 74 205 234 274" fill="none" stroke="url(#b)" stroke-width="28"/><path d="M182 310v-91l138-111 138 111" fill="none" stroke="#15181d" stroke-width="26" stroke-linejoin="round"/><path d="M182 310v74h95" fill="none" stroke="#15181d" stroke-width="26"/><rect x="276" y="225" width="32" height="32" fill="url(#b)"/><rect x="320" y="225" width="32" height="32" fill="url(#b)"/><rect x="276" y="269" width="32" height="32" fill="url(#b)"/><rect x="320" y="269" width="32" height="32" fill="url(#b)"/><path d="M407 151 304 336h67l-77 126 151-181h-72Z" fill="url(#b)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+<title id="title">SERVICE ELECTRIC by Cezar Gălățanu</title>
+<desc id="desc">Logo cu scut, casă, priză și fulger</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071321"/><stop offset=".55" stop-color="#0b2942"/><stop offset="1" stop-color="#06111d"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55c8ff"/><stop offset=".45" stop-color="#0877ff"/><stop offset="1" stop-color="#0050c8"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset=".5" stop-color="#cbd6df"/><stop offset="1" stop-color="#fff"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="5" y="5" width="1190" height="310" rx="48" fill="url(#bg)" stroke="#168dff" stroke-width="6"/>
+<rect x="14" y="14" width="1172" height="292" rx="40" fill="none" stroke="#55b5ff" stroke-opacity=".25" stroke-width="2"/>
+<g transform="translate(35 30)" filter="url(#glow)">
+ <path d="M125 8C91 35 57 43 18 48v92c0 63 37 106 107 137 70-31 107-74 107-137V48c-39-5-73-13-107-40Z" fill="#06111d" stroke="url(#silver)" stroke-width="10"/>
+ <path d="M125 8C91 35 57 43 18 48v92c0 63 37 106 107 137" fill="none" stroke="url(#blue)" stroke-width="9"/>
+ <path d="M55 136V88l70-56 70 56" fill="none" stroke="#fff" stroke-width="11" stroke-linejoin="round"/>
+ <rect x="106" y="89" width="15" height="15" rx="2" fill="#55c8ff"/>
+ <rect x="129" y="89" width="15" height="15" rx="2" fill="#55c8ff"/>
+ <rect x="106" y="110" width="15" height="15" rx="2" fill="#55c8ff"/>
+ <rect x="129" y="110" width="15" height="15" rx="2" fill="#55c8ff"/>
+ <path d="M171 47 116 145h36l-42 69 76-99h-37Z" fill="url(#blue)"/>
+ <path d="M79 140v43h45" fill="none" stroke="#fff" stroke-width="10"/>
+ <path d="M75 119v25m18-25v25M70 144h28" stroke="url(#blue)" stroke-width="8" stroke-linecap="round"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif">
+ <text x="305" y="124" font-size="82" font-weight="900" letter-spacing="2" fill="url(#silver)">SERVICE</text>
+ <text x="305" y="205" font-size="82" font-weight="900" letter-spacing="1" fill="url(#blue)">ELECTRIC</text>
+ <rect x="305" y="221" width="815" height="3" rx="2" fill="url(#blue)"/>
+ <text x="307" y="260" font-size="27" font-weight="700" letter-spacing="7" fill="#fff">by CEZAR GĂLĂȚANU</text>
+</g>
+</svg>

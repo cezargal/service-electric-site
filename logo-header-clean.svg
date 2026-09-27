@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-labelledby="t d">
+<title id="t">SERVICE ELECTRIC by Cezar Gălățanu</title><desc id="d">Logo SERVICE ELECTRIC pentru header</desc>
+<defs>
+ <linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55c8ff"/><stop offset=".55" stop-color="#0877ff"/><stop offset="1" stop-color="#0060d8"/></linearGradient>
+ <linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#d8e3ec"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+</defs>
+<g transform="translate(10 18)">
+ <path d="M92 5 25 34v58c0 45 27 77 67 101 40-24 67-56 67-101V34L92 5Z" fill="#071725" stroke="url(#b)" stroke-width="7"/>
+ <path d="M52 83 92 47l40 36" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M69 80v38h46V80" fill="none" stroke="#fff" stroke-width="7"/>
+ <path d="M105 42 77 92h22l-20 34 42-55h-21Z" fill="url(#b)"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif">
+ <text x="190" y="91" font-size="64" font-weight="900" letter-spacing="1" fill="url(#w)">SERVICE</text>
+ <text x="190" y="151" font-size="64" font-weight="900" letter-spacing="1" fill="url(#b)">ELECTRIC</text>
+ <rect x="190" y="165" width="510" height="2" rx="1" fill="url(#b)"/>
+ <text x="192" y="193" font-size="18" font-weight="700" letter-spacing="5" fill="#c7d7e5">by CEZAR GĂLĂȚANU</text>
+</g></svg>

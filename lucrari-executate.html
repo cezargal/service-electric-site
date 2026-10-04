@@ -21,7 +21,7 @@
 <script>
 const SUPABASE_URL='https://typlkmoadfzjnhfguypg.supabase.co';
 const SUPABASE_KEY='sb_publishable_R3KwKUwz9Pwm0oQbap7PvQ_g1S-Citz';
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const sb=window.supabase?.createClient ? window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY) : null;
 const grid=document.getElementById('grid'),count=document.getElementById('count');
 const publicUrl=path=>sb.storage.from('lucrari').getPublicUrl(path).data.publicUrl;
 let gallery=[],gi=0;
@@ -29,7 +29,64 @@ function openGallery(items,n){gallery=items;gi=n;showPhoto();document.getElement
 function showPhoto(){const p=gallery[gi];document.getElementById('lbImg').src=publicUrl(p.storage_path);document.getElementById('lbCount').textContent=(gi+1)+' / '+gallery.length}
 function closeGallery(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';document.getElementById('lbImg').src=''}
 document.getElementById('lbClose').onclick=closeGallery;document.getElementById('lbPrev').onclick=()=>{gi=(gi-1+gallery.length)%gallery.length;showPhoto()};document.getElementById('lbNext').onclick=()=>{gi=(gi+1)%gallery.length;showPhoto()};document.getElementById('lightbox').onclick=e=>{if(e.target.id==='lightbox')closeGallery()};document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('open'))return;if(e.key==='Escape')closeGallery();if(e.key==='ArrowLeft')document.getElementById('lbPrev').click();if(e.key==='ArrowRight')document.getElementById('lbNext').click()});
-async function load(){const {data:works,error}=await sb.from('lucrari_executate').select('*').order('data_lucrarii',{ascending:false}).order('created_at',{ascending:false});if(error){console.error(error);count.textContent='Eroare';grid.innerHTML='<div class="empty">Galeria nu poate fi încărcată momentan.</div>';return}const {data:photos}=await sb.from('lucrari_executate_poze').select('*').order('sort_order',{ascending:true});const map={};(photos||[]).forEach(p=>(map[p.lucrare_id]??=[]).push(p));count.textContent=(works||[]).length+' lucrări';if(!works?.length){grid.innerHTML='<div class="empty">În curând vom adăuga aici lucrările executate de SERVICE ELECTRIC.</div>';return}grid.innerHTML=works.map((w,wi)=>{const ps=map[w.id]||[];const cover=ps[0];const src=cover?publicUrl(cover.storage_path):'';const date=w.data_lucrarii?new Date(w.data_lucrarii+'T00:00:00').toLocaleDateString('ro-RO'):'';const safe=(x)=>String(x??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\\':'&#92;'}[c]));return `<article class="card"><div class="cover">${src?`<img src="${src}" alt="${safe(w.titlu)}" loading="lazy">`:''}<span class="photoCount">📷 ${ps.length}</span></div><div class="body"><div class="meta">${safe(date)}${w.locatie?' • '+safe(w.locatie):''}</div><h3>${safe(w.titlu)}</h3><p>${safe(w.descriere||'Lucrare executată de SERVICE ELECTRIC.')}</p>${ps.length?`<button class="open" type="button" data-work="${wi}">Vezi fotografiile →</button>`:''}</div></article>`}).join('');document.querySelectorAll('[data-work]').forEach(b=>b.onclick=()=>openGallery(map[works[+b.dataset.work].id]||[],0));grid.querySelectorAll('.cover').forEach((c,i)=>{if((map[works[i].id]||[]).length)c.onclick=()=>openGallery(map[works[i].id],0)});}
+async function load() {
+  try {
+    if (!sb) throw new Error('Biblioteca Supabase nu s-a încărcat.');
+
+    const { data: works, error: worksError } = await sb
+      .from('lucrari_executate')
+      .select('*')
+      .order('data_lucrarii', { ascending: false })
+      .order('created_at', { ascending: false })
+      .abortSignal(AbortSignal.timeout(15000));
+
+    if (worksError) throw worksError;
+
+    const { data: photos, error: photosError } = await sb
+      .from('lucrari_executate_poze')
+      .select('*')
+      .order('sort_order', { ascending: true })
+      .abortSignal(AbortSignal.timeout(15000));
+
+    if (photosError) throw photosError;
+
+    const map = Object.create(null);
+    (photos || []).forEach(photo => (map[photo.lucrare_id] ??= []).push(photo));
+    count.textContent = (works || []).length + ' lucrări';
+
+    if (!works?.length) {
+      grid.innerHTML = '<div class="empty">În curând vom adăuga aici lucrările executate de SERVICE ELECTRIC.</div>';
+      return;
+    }
+
+    grid.innerHTML = works.map((work, index) => {
+      const workPhotos = map[work.id] || [];
+      const cover = workPhotos[0];
+      const src = cover ? publicUrl(cover.storage_path) : '';
+      const date = work.data_lucrarii
+        ? new Date(work.data_lucrarii + 'T00:00:00').toLocaleDateString('ro-RO')
+        : '';
+      const safe = value => String(value ?? '').replace(/[&<>\\"]/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\\': '&#92;'
+      }[char]));
+
+      return `<article class="card"><div class="cover">${src ? `<img src="${src}" alt="${safe(work.titlu)}" loading="lazy">` : ''}<span class="photoCount">📷 ${workPhotos.length}</span></div><div class="body"><div class="meta">${safe(date)}${work.locatie ? ' • ' + safe(work.locatie) : ''}</div><h3>${safe(work.titlu)}</h3><p>${safe(work.descriere || 'Lucrare executată de SERVICE ELECTRIC.')}</p>${workPhotos.length ? `<button class="open" type="button" data-work="${index}">Vezi fotografiile →</button>` : ''}</div></article>`;
+    }).join('');
+
+    document.querySelectorAll('[data-work]').forEach(button => {
+      button.onclick = () => openGallery(map[works[+button.dataset.work].id] || [], 0);
+    });
+    grid.querySelectorAll('.cover').forEach((coverElement, index) => {
+      if ((map[works[index].id] || []).length) {
+        coverElement.onclick = () => openGallery(map[works[index].id], 0);
+      }
+    });
+  } catch (error) {
+    console.error('Nu am putut încărca portofoliul:', error);
+    count.textContent = 'Indisponibil';
+    grid.innerHTML = '<div class="empty">Portofoliul nu poate fi încărcat acum. Reîncarcă pagina sau revino puțin mai târziu.</div>';
+  }
+}
 load();
 </script>
 </body></html>

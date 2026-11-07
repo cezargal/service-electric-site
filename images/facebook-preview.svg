@@ -1,34 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06182c"/><stop offset=".58" stop-color="#0b3767"/><stop offset="1" stop-color="#06182c"/></linearGradient>
- <linearGradient id="blue" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0876df"/><stop offset="1" stop-color="#13a5f5"/></linearGradient>
- <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ffd22f"/><stop offset="1" stop-color="#ffad00"/></linearGradient>
-</defs>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#eaf4ff"/><stop offset="1" stop-color="#b8d8f5"/></linearGradient><linearGradient id="navy" x2="0" y2="1"><stop stop-color="#102d50"/><stop offset="1" stop-color="#06172b"/></linearGradient><linearGradient id="blue"><stop stop-color="#0876df"/><stop offset="1" stop-color="#25a5ff"/></linearGradient></defs>
 <rect width="1200" height="630" fill="url(#bg)"/>
-<circle cx="1080" cy="110" r="280" fill="#0b5eaa" opacity=".18"/>
-<path d="M0 470 L1200 350 L1200 630 L0 630Z" fill="#041225" opacity=".55"/>
-<path d="M54 36 L157 36 L184 76 L184 164 L106 216 L28 164 L28 76Z" fill="none" stroke="#1689ef" stroke-width="12" stroke-linejoin="round"/>
-<path d="M53 113 L106 73 L159 113" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="77" y="117" width="58" height="44" rx="5" fill="#fff"/>
-<path d="M112 111 L91 151 L112 151 L100 183 L137 137 L116 137 L130 111Z" fill="#0876df"/>
-<text x="220" y="94" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="55" font-weight="900" letter-spacing="-1">SERVICE <tspan fill="#39a7ff">ELECTRIC</tspan></text>
-<text x="224" y="143" fill="#d9e9fa" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700">by Cezar Gălățanu</text>
-<path d="M220 164 H720" stroke="#1689ef" stroke-width="7" stroke-linecap="round"/>
-<text x="60" y="274" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="900">NU TREBUIE SĂ VII TU LA NOI.</text>
-<rect x="54" y="292" width="690" height="62" rx="10" fill="url(#gold)"/>
-<text x="78" y="337" fill="#07182b" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="900">NOI VENIM LA TINE!</text>
-<text x="790" y="103" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="28" font-style="italic" font-weight="700">Tu ne spui de ce ai nevoie.</text>
-<text x="790" y="145" fill="#ffd22f" font-family="Arial,Helvetica,sans-serif" font-size="34" font-style="italic" font-weight="900">Noi venim cu soluția!</text>
-<g font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#f3f8ff">
- <circle cx="75" cy="408" r="15" fill="#ffd22f"/><path d="M67 408l6 6 11-13" fill="none" stroke="#09213a" stroke-width="4"/><text x="106" y="416">Interfoane și videointerfoane</text>
- <circle cx="75" cy="458" r="15" fill="#ffd22f"/><path d="M67 458l6 6 11-13" fill="none" stroke="#09213a" stroke-width="4"/><text x="106" y="466">Control acces și cartele</text>
- <circle cx="75" cy="508" r="15" fill="#ffd22f"/><path d="M67 508l6 6 11-13" fill="none" stroke="#09213a" stroke-width="4"/><text x="106" y="516">Automatizări porți, garaje și bariere</text>
- <circle cx="625" cy="408" r="15" fill="#ffd22f"/><path d="M617 408l6 6 11-13" fill="none" stroke="#09213a" stroke-width="4"/><text x="656" y="416">Supraveghere video</text>
- <circle cx="625" cy="458" r="15" fill="#ffd22f"/><path d="M617 458l6 6 11-13" fill="none" stroke="#09213a" stroke-width="4"/><text x="656" y="466">Sisteme de alarmă</text>
- <circle cx="625" cy="508" r="15" fill="#ffd22f"/><path d="M617 508l6 6 11-13" fill="none" stroke="#09213a" stroke-width="4"/><text x="656" y="516">Consultanță și ofertare la locație</text>
-</g>
-<path d="M0 550 H1200" stroke="#1689ef" stroke-width="4"/>
-<text x="55" y="607" fill="#ffd22f" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="900">0733 928 730</text>
-<text x="500" y="590" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">service-electric.ro</text>
-<text x="500" y="618" fill="#b8d9f8" font-family="Arial,Helvetica,sans-serif" font-size="18">Botoșani și împrejurimi • Acceptăm plata cu cardul</text>
+<path d="M0 0H1200V630H0Z" fill="#0a2039" opacity=".08"/>
+<g opacity=".95"><rect x="675" y="0" width="525" height="490" fill="#d7e8f7"/><rect x="720" y="0" width="480" height="455" fill="#f4f8fc"/><path d="M700 0V470M845 0V470M990 0V470M1135 0V470" stroke="#9bb7d1" stroke-width="12"/><path d="M675 170H1200M675 330H1200" stroke="#9bb7d1" stroke-width="12"/><rect x="710" y="485" width="490" height="18" fill="#657d95"/></g>
+<g><path d="M800 355H1200V510H800Z" fill="#172b40"/><path d="M800 385H1200M800 425H1200M800 465H1200" stroke="#8ca4ba" stroke-width="9"/><path d="M820 350V510M1180 350V510" stroke="#8ca4ba" stroke-width="9"/></g>
+<rect x="1040" y="175" width="110" height="215" rx="12" fill="#c8d2dc" stroke="#4b6178" stroke-width="7"/><circle cx="1095" cy="220" r="25" fill="#172b40"/><circle cx="1095" cy="220" r="12" fill="#40a9ff"/><g fill="#465d73"><circle cx="1070" cy="278" r="5"/><circle cx="1090" cy="278" r="5"/><circle cx="1110" cy="278" r="5"/><circle cx="1130" cy="278" r="5"/></g><rect x="1072" y="320" width="46" height="28" rx="5" fill="#0b76d1"/>
+<rect x="910" y="60" width="120" height="62" rx="25" fill="#253d55"/><path d="M935 92Q970 35 1005 92" fill="#101f32"/><circle cx="970" cy="92" r="13" fill="#35a7ff"/>
+<rect x="0" y="0" width="720" height="630" fill="url(#navy)"/>
+<path d="M0 0H720V630H0Z" fill="#06182d" opacity=".26"/>
+<g transform="translate(48 34)"><path d="M15 36L75 0L135 36V112L75 151L15 112Z" fill="none" stroke="#32a4ff" stroke-width="9"/><path d="M35 62L75 31L115 62V106H35Z" fill="none" stroke="#fff" stroke-width="7"/><path d="M82 59L59 91H80L70 121L104 80H84L98 59Z" fill="#ffcc22"/></g>
+<text x="210" y="84" fill="#fff" font-family="Arial,sans-serif" font-size="49" font-weight="900">SERVICE <tspan fill="#35a4ff">ELECTRIC</tspan></text><text x="213" y="126" fill="#d6e9fb" font-family="Arial,sans-serif" font-size="27" font-weight="700">by Cezar Gălățanu</text>
+<text x="50" y="230" fill="#fff" font-family="Arial,sans-serif" font-size="43" font-weight="900">NU MAI PIERDE TIMP</text><text x="50" y="285" fill="#ffd02a" font-family="Arial,sans-serif" font-size="55" font-weight="900">CU DRUMURI!</text><text x="50" y="337" fill="#fff" font-family="Arial,sans-serif" font-size="38" font-weight="900">NOI VENIM LA TINE!</text>
+<path d="M50 358H655" stroke="#28a0ff" stroke-width="6"/>
+<g font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#f5f9ff">
+<text x="55" y="407">✓ Interfoane și videointerfoane</text><text x="55" y="447">✓ Cartele și control acces</text><text x="55" y="487">✓ Automatizări porți și garaje</text><text x="55" y="527">✓ Bariere auto</text><text x="380" y="407">✓ Supraveghere video</text><text x="380" y="447">✓ Sisteme de alarmă</text><text x="380" y="487">✓ Ofertare la locație</text><text x="380" y="527">✓ Intervenții la domiciliu</text></g>
+<rect x="0" y="555" width="1200" height="75" fill="#031326"/><text x="42" y="608" fill="#ffd02a" font-family="Arial,sans-serif" font-size="48" font-weight="900">0733 928 730</text><text x="500" y="585" fill="#fff" font-family="Arial,sans-serif" font-size="23" font-weight="700">Botoșani și împrejurimi</text><text x="500" y="615" fill="#b9d7f4" font-family="Arial,sans-serif" font-size="20">service-electric.ro • Acceptăm plata cu cardul</text>
 </svg>
